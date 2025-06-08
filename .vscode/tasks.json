@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "[USE ME] Build C/C++ (auto-detect file type)",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "set FILE=\"${file}\" && set FILE_EXT=%FILE:~-2% && if \"%FILE_EXT%\"==\".c\" ( \"C:\\msys64\\ucrt64\\bin\\gcc.exe\" \"${file}\" -g -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\" ) else ( \"C:\\msys64\\ucrt64\\bin\\g++.exe\" \"${file}\" -g -o \"${fileDirname}\\${fileBasenameNoExtension}.exe\" )"
+            ],
+            "options": {
+                "cwd": "${fileDirname}",
+                "shell": {
+                    "executable": "C:\\Windows\\System32\\cmd.exe"
+                }
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Auto-select gcc or g++ based on file extension. Fully quoted for paths with spaces.",
+            "presentation": {
+                "close": true,
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
