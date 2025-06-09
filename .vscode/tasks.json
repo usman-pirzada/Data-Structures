@@ -46,7 +46,11 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "Task generated to for devcontainer."
+            "detail": "Task generated to for devcontainer.",
+            "presentation": {
+                "close": true,
+                "panel": "dedicated"
+            }
         }
         
     ]
