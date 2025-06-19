@@ -1,1 +1,2 @@
-
+### Data Structures Practice
+This repository contains practice problems and solutions for various data structures. The problems are designed to help understand and implement different data structures effectively.
