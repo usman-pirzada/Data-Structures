@@ -81,7 +81,7 @@ int main() {
         bool isUnique = true;
 
         for (int j=0; j<arr_sz; j++) {
-            if(arr[i] == arr[j] && j!=i) {
+            if(arr[i] == arr[j] && j != i) {    // OR use `if(j == i) continue;` instead of `j != i` here
                 isUnique = false;
                 break;
             }
