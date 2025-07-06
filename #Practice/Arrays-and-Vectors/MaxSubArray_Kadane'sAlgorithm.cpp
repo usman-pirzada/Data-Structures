@@ -28,7 +28,7 @@
 using namespace std;
 
 int maxSubArraySUM(vector<int>& vec) {   // Brute Force Approach [O(n²)]
-    int maxSum = INT_MIN;
+    int maxSum = INT_MIN;   // todo: Why not int maxSum = vec[0]
 
     for (size_t start = 0; start < vec.size(); start++) {
         int currentSum = 0;
