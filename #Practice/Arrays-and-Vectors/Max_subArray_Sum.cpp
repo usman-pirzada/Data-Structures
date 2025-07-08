@@ -24,44 +24,60 @@
  */
 
 #include <iostream>
+// #include <algorithm>
 #include <vector>
 using namespace std;
 
-int maxSubArraySUM(vector<int>& vec) {   // Brute Force Approach [O(n²)]
-    int maxSum = INT_MIN;   // todo: Why not int maxSum = vec[0]
+//      ~~~~~ Brute Force Approach [O(n²)] ~~~~~
+int maxSubArraySUM(vector<int>& vec) {
+    if(vec.empty()) return 0;
 
-    for (size_t start = 0; start < vec.size(); start++) {
+    int maxSum = vec[0];   // Can also be ```int maxSum = INT_MIN;```
+    int a = INT_MIN;
+
+    for (size_t i = 0; i < vec.size(); i++) {
         int currentSum = 0;
 
-        for (int end = start; end < vec.size(); end++) {
-            currentSum += vec[end];
+        for (int j = i; j < vec.size(); j++) {
+            currentSum += vec[j];
             maxSum = max(currentSum, maxSum);
         }
     }
-
     return maxSum;
 }
 
-int maxSubArraySUM_Optimal(vector<int>& vec) {   // Kadane's Algorithm Approach  [O(n)]
-    int maxSum = INT_MIN, currentSum = 0;
+//       ~~~~~ Kadane's Algorithm Approach  [O(n)] ~~~~~
+int maxSubArraySUM_Optimal(vector<int>& vec) {
+    if(vec.empty()) return 0;
 
-    for (size_t i = 0; i < vec.size(); i++) {
+    int maxSum, currentSum = vec[0];   // Can also be ```int maxSum = INT_MIN, int currentSum = 0;```
+
+    for (size_t i = 1; i < vec.size(); i++) {
         currentSum += vec[i];
         maxSum = max(currentSum, maxSum);
 
         if(currentSum < 0) currentSum = 0;
-    }
 
+        /*
+                    OR
+        currentSum = max(currentSum + vec[i], vec[i]);
+        maxSum = max(maxSum, currentSum);
+
+        (Here 'if' for resetting 'currentSum' is not needed.)
+        */
+    }
     return maxSum;
 }
 
 int main() {
-    vector<int> vec1 = {3, -4, 5, 4, -1, 7, -8};
-    vector<int> vec2 = {-7, -3, 10, -10, 2, -8, -5, -9, -4, -6};
 
+    vector<int> vec1 = {3, -4, 5, 4, -1, 7, -8};
     cout << "Max Subarray Sum: " << maxSubArraySUM(vec1) << endl;
     cout << "Max Subarray Sum: " << maxSubArraySUM_Optimal(vec1) << endl;
 
+    vector<int> vec2 = {-7, -3, 10, -10, 2, -8, -5, -9, -4, -6};
     cout << "\nMax Subarray Sum: " << maxSubArraySUM(vec2) << endl;
     cout << "Max Subarray Sum: " << maxSubArraySUM_Optimal(vec2) << endl;
+
+    return 0;
 }

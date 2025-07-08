@@ -3,6 +3,7 @@
  */
 
 #include <iostream>
+#include <climits>
 using namespace std;
 
 int linearSearch(int[], int, int);
