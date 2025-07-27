@@ -19,10 +19,9 @@
  *      4. If sum < target: move LEFT pointer towards right (increasing the sum)
  *      5. If sum > target: move RIGHT pointer towards left (decreasing the sum)
  *  Note: This approach only works for sorted arrays.
- *
+ * 
  * Space Complexity:
- *  - Both approaches use O(1) additional space (excluding the return vector)   // todo:
- *  - The return vector stores at most 2 indices
+ *  - Both approaches have O(1) space complexity as they only use a constant amount of extra space
  */
 
 #include <iostream>
@@ -54,7 +53,7 @@ pair<int, int> findTarget_Optimal(vector<int>& vec, int targetSum) {   // Valid 
             return {left, right};
         } else if(pairSum < targetSum) {
             left++;
-        } else {
+        } else {    // If pairSum > targetSum
             right--;
         }
     }
