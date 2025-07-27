@@ -10,7 +10,7 @@
  *      3. Tracking and updating the maximum sum found so far
  *  Note: For each start position, we consider all possible ending positions including the start position itself as ending position.
  * 
- * Kadane’s Algorithm [O(n)]:
+ * Kadane's Algorithm [O(n)]:
  *  This approach tracks the maximum subarray sum by:
  *      1. Maintaining a running sum (currentSum)
  *      2. Comparing currentSum with the overall maximum (maxSum) at each step
@@ -18,13 +18,12 @@
  *  Note: We compare maxSum with currentSum first, then reset currentSum if needed.
  *  This preserves the correct result when all elements are negative.
  * 
- * Space Complexity:
- *  - With reference parameter (`&` in `vector<int>& vec`): Space complexity remains O(1) for the function itself
- *  - Without reference: Space complexity becomes O(n) for the function due to the vector copy
+ * Space Complexity: O(1) for both approaches, as they only use a fixed number of variables
+ *  regardless of input size and don't require any additional data structures.
  */
 
 #include <iostream>
-// #include <algorithm>
+#include <algorithm>
 #include <vector>
 using namespace std;
 
@@ -33,9 +32,8 @@ int maxSubArraySUM(vector<int>& vec) {
     if(vec.empty()) return 0;
 
     int maxSum = vec[0];   // Can also be ```int maxSum = INT_MIN;```
-    int a = INT_MIN;
 
-    for (size_t i = 0; i < vec.size(); i++) {
+    for (size_t i = 0; i < vec.size(); i++) {   // 
         int currentSum = 0;
 
         for (int j = i; j < vec.size(); j++) {
@@ -50,7 +48,7 @@ int maxSubArraySUM(vector<int>& vec) {
 int maxSubArraySUM_Optimal(vector<int>& vec) {
     if(vec.empty()) return 0;
 
-    int maxSum, currentSum = vec[0];   // Can also be ```int maxSum = INT_MIN, int currentSum = 0;```
+    int maxSum = vec[0], currentSum = vec[0];   // Can also be ```int maxSum = INT_MIN, int currentSum = 0;```
 
     for (size_t i = 1; i < vec.size(); i++) {
         currentSum += vec[i];
@@ -63,7 +61,7 @@ int maxSubArraySUM_Optimal(vector<int>& vec) {
         currentSum = max(currentSum + vec[i], vec[i]);
         maxSum = max(maxSum, currentSum);
 
-        (Here 'if' for resetting 'currentSum' is not needed.)
+        (Now ```if(currentSum < 0)...``` for resetting 'currentSum' is not needed.)
         */
     }
     return maxSum;
