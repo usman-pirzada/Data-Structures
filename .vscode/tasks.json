@@ -5,11 +5,15 @@
             "label": "C/C++: g++.exe build active file",
             "command": "C:\\Program Files\\msys64\\ucrt64\\bin\\g++.exe",
             "args": [
+                "-std=c++23",
+                "-pedantic-errors",
+                "-Wall",
+                "-Wextra",
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${env:USERPROFILE}/Documents/Cpp Compiled Programs/${fileBasenameNoExtension}.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
