@@ -43,7 +43,7 @@ bool solveMaze(const char maze[n][n], int row, int col, char sol[n][n], int& ene
 
         // Check Down
         if(solveMaze(maze, row+1, col, sol, energy)) {
-            return true;
+            foundPath = true;
         }
 
         energy = tempEnergy;
