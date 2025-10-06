@@ -4,14 +4,13 @@ using namespace std;
 #define n 6
 
 void printSolMaze(const char sol[n][n], const int& energy) {
-    cout << "\nEnergy Remaining after reaching Treasure Room: " << energy << "%" << endl;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             cout << sol[i][j] << " ";
         }
         cout << "\n";
     }
-    cout << "\n";
+    cout << "Energy Remaining after reaching Treasure Room: " << energy << "%" << endl;
 }
 
 bool isSafe(const char maze[n][n], int row, int col, const char sol[n][n], int& energy) {
@@ -31,7 +30,7 @@ bool isSafe(const char maze[n][n], int row, int col, const char sol[n][n], int& 
 bool solveMaze(const char maze[n][n], int row, int col, char sol[n][n], int& energy) {
     if(row == n-1 && col == n-1 && maze[row][col] == 'T') {
         sol[row][col] = maze[row][col];
-        cout << "Solution Path:\n";
+        cout << "\nSolution Path:\n";
         printSolMaze(sol, energy);
         return true;
     }
@@ -39,28 +38,37 @@ bool solveMaze(const char maze[n][n], int row, int col, char sol[n][n], int& ene
     if(isSafe(maze, row, col, sol, energy)) {
         sol[row][col] = maze[row][col];
 
+        int tempEnergy = energy;
+        bool foundPath = false;
+
         // Check Down
         if(solveMaze(maze, row+1, col, sol, energy)) {
             return true;
         }
 
+        energy = tempEnergy;
+
         // Check Left
         if(solveMaze(maze, row, col-1, sol, energy)) {
-            return true;
+            foundPath = true;
         }
+
+        energy = tempEnergy;
 
         // Check Right
         if(solveMaze(maze, row, col+1, sol, energy)) {
-            return true;
+            foundPath = true;
         }
+
+        energy = tempEnergy;
 
         // Check Up
         if(solveMaze(maze, row-1, col, sol, energy)) {
-            return true;
+            foundPath = true;
         }
 
         sol[row][col] = '0';
-        return false;
+        return foundPath;
     }
 
     return false;
