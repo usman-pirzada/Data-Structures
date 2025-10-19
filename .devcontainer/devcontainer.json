@@ -1,31 +1,179 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/cpp
 {
-	"name": "C++",
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
+	"image": "mcr.microsoft.com/devcontainers/cpp:ubuntu-24.04",
 	"features": {
-		"ghcr.io/devcontainers/features/github-cli:1": {
-			"version": "latest"
-		},
-		"ghcr.io/devcontainers-extra/features/powershell:1": {
-			"version": "latest"
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"formulahendry.code-runner"
+			],
+
+			// VS Code settings
+			"settings": {
+				"update.enableWindowsBackgroundUpdates": false,
+				"update.mode": "manual",
+				"files.autoSaveDelay": 10,
+				"telemetry.telemetryLevel": "crash",
+				"cmake.showOptionsMovedNotification": false,
+				"security.workspace.trust.startupPrompt": "always",
+				"genieai.enableConversationHistory": true,
+				"sqldeveloper.telemetry.enabled": false,
+				"files.associations": {
+					"*.c": "c"
+				},
+				"git.autofetch": true,
+				"files.autoSave": "afterDelay",
+				"git.openRepositoryInParentFolders": "always",
+				"editor.hover.delay": 500,
+				"code-runner.executorMap": {
+					"java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+					// For cmd
+					// "cpp": "cd \"$dir\" && g++ -std=c++23 -pedantic-errors -Wall -Wextra \"$fileName\" -o \"%USERPROFILE%/Documents/CppBuilds/$fileNameWithoutExt.exe\" && echo: && \"%USERPROFILE%/Documents/CppBuilds/$fileNameWithoutExt.exe\"",
+					// "cpp": "cd \"$dir\" && g++ -std=c++23 -pedantic-errors -Wall -Wextra \"$fileName\" -o \"$fileNameWithoutExt.exe\" && echo: && \"$fileNameWithoutExt.exe\"",
+					"cpp": "cd \"$dir\" && mkdir -p \"CppBuilds\" && g++ -std=c++23 -pedantic-errors -Wall -Wextra \"$file\" -o \"CppBuilds/${fileBasenameNoExtension}.out\" && printf \"\\n\" && \"./CppBuilds/${fileBasenameNoExtension}.out\""
+					// For PS
+					// "cpp": "cd \"$dir\"; g++ -std=c++23 -pedantic-errors -Wall -Wextra \"$fileName\" -o \"$env:USERPROFILE\\Documents\\CppBuilds\\$fileNameWithoutExt.exe\"; echo ''; & \"$env:USERPROFILE\\Documents\\CppBuilds\\$fileNameWithoutExt.exe\""
+				},
+				"github.copilot.enable": {
+					"*": false,
+					"plaintext": false,
+					"scminput": false,
+					"markdown": true
+				},
+				"terminal.integrated.localEchoStyle": "dim",
+				"redhat.telemetry.enabled": false,
+				"java.server.launchMode": "Standard",
+				"workbench.settings.applyToAllProfiles": [
+					"java.server.launchMode",
+					"code-runner.executorMap"
+				],
+				
+				"github.copilot.editor.enableAutoCompletions": false,
+				"github.copilot.chat.localeOverride": "en",
+				"editor.minimap.enabled": false,
+				"editor.fontSize": 16,
+				"tabnine.completionsLoadingIndicatorEnabled": false,
+				"tabnine.codeLensEnabled": false,
+				"github.copilot.chat.scopeSelection": true,
+				"remote.SSH.experimental.chat": false,
+				"git.confirmSync": false,
+				"workbench.editorAssociations": {
+					"*.copilotmd": "vscode.markdown.preview.editor",
+					"{git,gitlens,git-graph}:/**/*.{md,csv,svg}": "default"
+				},
+				"vscode-office.editorTheme": "Github Dark",
+				"vscode-office.openOutline": false,
+				"terminal.integrated.focusAfterRun": "terminal",
+				"geminicodeassist.inlineSuggestions.enableAuto": false,
+				"diffEditor.codeLens": true,
+				"workbench.colorTheme": "Default Dark Modern",
+				"workbench.startupEditor": "welcomePage",
+				"remoteHub.commitDirectlyWarning": "off",
+				"inference.model": "custom",
+				"inference.delay": 0,
+				"inference.custom.format": "deepseek",
+				"inference.endpoint": "http://127.0.0.1:11434/",
+				"inference.custom.model": "deepseek-coder",
+				"codium.codeCompletion.enable": false,
+				"codium.customInstructions.allMessages": "Programming language: Java",
+				"codium.customInstructions.specificCommands": {},
+				"codium.editorButton": false,
+				"codium.codeCompletion.userInstructions": "",
+				"codium.rag.maxLocalSnippets": 5,
+				"codium.rag.maxRemoteSnippets": 5,
+				"continue.enableTabAutocomplete": false,
+				"continue.enableQuickActions": true,
+				// "github.copilot.chat.codeGeneration.instructions": [],
+				"debug.onTaskErrors": "showErrors",
+				"C_Cpp.intelliSenseUpdateDelay": 500,
+				"C_Cpp.codeAnalysis.updateDelay": 500,
+				"code-runner.saveFileBeforeRun": true,
+				"workbench.editor.empty.hint": "hidden",
+				"accessibility.dimUnfocused.enabled": true,
+				"github.copilot.chat.followUps": "always",
+				"github.copilot.chat.agent.thinkingTool": true,
+				"C_Cpp.errorSquiggles": "enabled",
+				"C_Cpp.autocompleteAddParentheses": true,
+				"code-runner.languageIdToFileExtensionMap": {
+					"bat": ".bat",
+					"powershell": ".ps1",
+					"typescript": ".ts"
+				},
+				"code-runner.preserveFocus": false,
+				"code-runner.runInTerminal": true,
+				"C_Cpp.default.cppStandard": "c++23",
+				"C_Cpp.default.cStandard": "c23",
+				"terminal.integrated.defaultProfile.windows": "Command Prompt",
+				"github.copilot.nextEditSuggestions.enabled": true,
+				"github.copilot.chat.codesearch.enabled": true,
+				"github.copilot.chat.alternateGptPrompt.enabled": true,
+				"github.copilot.chat.editor.temporalContext.enabled": true,
+				"github.copilot.chat.edits.temporalContext.enabled": true,
+				"github.copilot.chat.generateTests.codeLens": true,
+				"github.copilot.chat.responsesApiReasoningEffort": "high",
+				"github.copilot.chat.useResponsesApi": true
+			},
+
+			// Keyboard Shortcuts for VS Code
+			"keybindings": [
+				{
+					"key": "alt+f11",
+					"command": "code-runner.run"
+				},
+				{
+					"key": "ctrl+alt+n",
+					"command": "-code-runner.run"
+				},
+				{
+					"key": "ctrl+shift+f11",
+					"command": "C_Cpp.BuildAndRunFile"
+				},
+				{
+					"key": "ctrl+alt+s",
+					"command": "git.stageAll"
+				},
+				{
+					"key": "ctrl+alt+c",
+					"command": "git.stage"
+				},
+				{
+					"key": "ctrl+k",
+					"command": "workbench.action.addComment"
+				},
+				{
+					"key": "ctrl+k ctrl+alt+c",
+					"command": "-workbench.action.addComment"
+				},
+				{
+					"key": "ctrl+i",
+					"command": "-tabnine.instruct",
+					"when": "editorTextFocus"
+				},
+				{
+					"key": "ctrl+win+g",
+					"command": "cloudcode.duetAI.showinEditor",
+					"when": "authLoggedIn && config.geminicodeassist.enable && editorTextFocus && shouldRegisterInEditorCommand && !inGeminiDiffView && !isInDiffEditor"
+				},
+				{
+					"key": "ctrl+i",
+					"command": "-cloudcode.duetAI.showinEditor",
+					"when": "authLoggedIn && config.geminicodeassist.enable && editorTextFocus && shouldRegisterInEditorCommand && !inGeminiDiffView && !isInDiffEditor"
+				},
+				{
+					"key": "ctrl+i",
+					"command": "-continue.focusEdit"
+				},
+				{
+					"key": "ctrl+f4",
+					"command": "-workbench.action.terminal.killEditor",
+					"when": "terminalEditorFocus && terminalFocus && terminalHasBeenCreated || terminalEditorFocus && terminalFocus && terminalProcessSupported"
+				},
+				{
+					"key": "ctrl+f4",
+					"command": "workbench.action.terminal.kill"
+				}
+			]
 		}
 	}
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "gcc -v",
-
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
 }
