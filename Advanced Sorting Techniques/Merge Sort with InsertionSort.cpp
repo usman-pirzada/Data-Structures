@@ -2,7 +2,6 @@
 using namespace std;
 
 void insertionSort(int* arr, int start, int end) {
-    int arr_size = (end - start) + 1;
     for(int i = start + 1; i <= end; i++) {
         int prevIdx = i - 1;
         int curr = arr[i];
