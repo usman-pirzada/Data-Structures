@@ -2,34 +2,31 @@
 using namespace std;
 
 void merge(int* arr, int start, int mid, int end) {
-    int i = start, j = mid+1, index = 0;
-    int* temp = new int[(end-start)+1];
+    int i = start, j = mid+1;
+    int arr_size = (end-start)+1;
+    int* temp = new int[arr_size], tempIdx = 0;
 
     while(i <= mid && j <= end) {
         if(arr[i] <= arr[j]) {
-            temp[index] = arr[i];
+            temp[tempIdx] = arr[i];
             i++;
         } else {
-            temp[index] = arr[j];
+            temp[tempIdx] = arr[j];
             j++;
         }
 
-        index++;
+        tempIdx++;
     }
 
     while(i <= mid) {
-        temp[index] = arr[i];
-        index++;
-        i++;
+        temp[tempIdx++] = arr[i++];
     }
 
     while(j <= end) {
-        temp[index] = arr[j];
-        index++;
-        j++;
+        temp[tempIdx++] = arr[j++];
     }
 
-    for (int k = 0; k < index; k++) {
+    for (int k = 0; k < arr_size; k++) {
         arr[start + k] = temp[k];
     }
 
