@@ -2,9 +2,9 @@
 using namespace std;
 
 void merge(int* arr, int start, int mid, int end) {
-    int i = start, j = mid+1;
-    int arr_size = (end-start)+1;
-    int* temp = new int[arr_size], tempIdx = 0;
+    int i = start, j = mid+1, arr_size = (end-start)+1;
+    int* temp = new int[arr_size];
+    int tempIdx = 0;
 
     while(i <= mid && j <= end) {
         if(arr[i] <= arr[j]) {
