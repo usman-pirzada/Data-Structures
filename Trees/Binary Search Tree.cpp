@@ -43,10 +43,9 @@ private:
     }
 
     static Node* getInorderSuccessor(Node* root) {
-        while(!root && !root->left) {
+        while(root && root->left) {
             root = root->left;
         }
-
         return root;
     }
 
@@ -74,6 +73,8 @@ private:
                 root->right = deleteNodeHelper(root->right, inorderSuccessor->data);    // delete the duplicate (as we have copied its data to root)
             }
         }
+
+        return root;
     }
 
     static void displayInorderHelper(Node* root) {
@@ -109,10 +110,16 @@ public:
 int main() {
     
     BST myBST;
-    myBST.insert(54);
-    myBST.insert(76);
-    myBST.insert(29);
-    myBST.insert(66);
+    myBST.insert(3);
+    myBST.insert(2);
+    myBST.insert(1);
+    myBST.insert(5);
+    myBST.insert(6);
+    myBST.insert(4);
+    myBST.displayInorder();
+
+    myBST.deleteNode(6);
+    cout << endl;
     myBST.displayInorder();
 
     cout << endl;
