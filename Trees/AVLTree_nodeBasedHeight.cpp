@@ -120,6 +120,85 @@ private:
         }
     }
 
+    void deleteUtil(AVLNode*& root, int data) {
+        if(!root) {
+            return;
+        }
+
+        if(data < root->data) {
+            deleteUtil(root->left, data);
+        }
+        else if(data > root->data) {
+            deleteUtil(root->right, data);
+        }
+        else {  // If (data == root->data)
+            // When the node (to be deleted) is Leaf Node (has NO child)
+            if(!root->left && !root->right) {
+                delete root;
+                root = NULL;
+            }
+
+            // When the node has only one child
+            else if(root->left && !root->right) {
+                AVLNode* temp = root->left;
+                delete root;
+                root = temp;
+            }
+            else if(!root->left && root->right) {
+                AVLNode* temp = root->right;
+                delete root;
+                root = temp;
+            }
+
+            // When the node has both child
+            else if(root->left && root->right) {
+                // "curr" pointer will be used to traverse in the root's right sub-tree to find min element (which will be the left-most node)
+                AVLNode* curr = root->right;
+                while(curr->left) {
+                    curr = curr->left;
+                }
+
+                root->data = curr->data;
+                deleteUtil(root->right, curr->data);
+            }
+        }
+
+        if(!root) return;   // Required here since the last remaining Node might have been deleted.
+
+        root->height = 1 + max(height(root->left), height(root->right));
+
+        // *** Self-balancing Logic ***
+
+        int balance = balanceFactor(root);
+
+        // Left side case
+        if(balance > 1) {
+            // Left-Left unbalancing
+            if(balanceFactor(root->left) >= 0) {    // When for root->left, leftHeight > rightHeight or both equal
+                root = rightRotate(root);
+            }
+            // Left-Right unbalancing
+            else {  // When for root->left, rightHeight > leftHeight
+                root->left = leftRotate(root->left);
+                root = rightRotate(root);
+            }
+        }
+
+        // Right side case
+        else if(balance < -1) {
+            // Right-Right unbalancing
+            if(balanceFactor(root->right) <= 0) {
+                root = leftRotate(root);
+            }
+            // Right-Left unbalancing
+            else {
+                root->right = rightRotate(root->right);
+                root = leftRotate(root);
+            }
+        }
+    }
+
+    /*
     AVLNode* deleteUtil(AVLNode* root, int data) {
         if(!root) {
             return NULL;
@@ -199,6 +278,7 @@ private:
         else
             return root;
     }
+    */
 
     /*
     AVLNode* insertUtil(AVLNode* root, int data) {
@@ -281,6 +361,14 @@ public:
         */
     }
 
+    void deleteNode(int data) {
+        deleteUtil(root, data);
+
+        /*
+        root = deleteUtil(root, data);
+        */
+    }
+
     void printInorder() {
         inorder(root);
         cout << endl;
@@ -298,6 +386,10 @@ int main() {
     avlTree.insert(25);
     avlTree.insert(35);
     avlTree.insert(50);
+
+    avlTree.printInorder();
+
+    avlTree.deleteNode(25);
 
     avlTree.printInorder();
     
