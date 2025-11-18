@@ -120,6 +120,148 @@ private:
         }
     }
 
+    AVLNode* deleteUtil(AVLNode* root, int data) {
+        if(!root) {
+            return NULL;
+        }
+
+        if(data < root->data) {
+            root->left = deleteUtil(root->left, data);
+        }
+        else if(data > root->data) {
+            root->right = deleteUtil(root->right, data);
+        }
+        else {  // If (data == root->data)
+            // When the node (to be deleted) is Leaf Node (has NO child)
+            if(!root->left && !root->right) {
+                delete root;
+                return NULL;
+            }
+
+            // When the node has only one child
+            else if(root->left && !root->right) {
+                AVLNode* temp = root->left;
+                delete root;
+                return temp;
+            }
+            else if(!root->left && root->right) {
+                AVLNode* temp = root->right;
+                delete root;
+                return temp;
+            }
+
+            // When the node has both child
+            else if(root->left && root->right) {
+                // "curr" pointer will be used to traverse in the root's right sub-tree to find min element (which will be the left-most node)
+                AVLNode* curr = root->right;
+                while(curr->left) {
+                    curr = curr->left;
+                }
+
+                root->data = curr->data;
+                root->right = deleteUtil(root->right, curr->data);
+            }
+        }
+
+        root->height = 1 + max(height(root->left), height(root->right));
+
+        // *** Self-balancing Logic ***
+
+        int balance = balanceFactor(root);
+
+        // Left side case
+        if(balance > 1) {
+            // Left-Left unbalancing
+            if(balanceFactor(root->left) >= 0) {    // When for root->left, leftHeight > rightHeight or both equal
+                return rightRotate(root);
+            }
+            // Left-Right unbalancing
+            else {  // When for root->left, rightHeight > leftHeight
+                root->left = leftRotate(root->left);
+                return rightRotate(root);
+            }
+        }
+
+        // Right side case
+        else if(balance < -1) {
+            // Right-Right unbalancing
+            if(balanceFactor(root->right) <= 0) {
+                return leftRotate(root);
+            }
+            // Right-Left unbalancing
+            else {
+                root->right = rightRotate(root->right);
+                return leftRotate(root);
+            }
+        }
+
+        // No unbalancing case
+        else
+            return root;
+    }
+
+    /*
+    AVLNode* insertUtil(AVLNode* root, int data) {
+        if(!root) {
+            return (new AVLNode(data));
+        }
+
+        if(data < root->data) {
+            insertUtil(root->left, data);
+        }
+        else if(data > root->data) {
+            insertUtil(root->right, data);
+        }
+        else {
+            cout << "\nDuplicated values are NOT allowed!!" << endl;
+            return root; // No insertion for duplicates.
+        }
+
+        root->height = 1 + max(height(root->left), height(root->right));
+
+        // *** Self-balancing Logic ***
+
+        int balance = balanceFactor(root);
+
+        /**
+         * Safe to access root->left->data / root->right->data here: the balance
+           factor is checked first, so the corresponding child must exist
+           (balance > 1 implies root->left != nullptr; balance < -1 implies root->right != nullptr).
+         */
+        // Left-heavy subtree
+        /*
+        if(balance > 1) {
+            // Left-Left unbalanced
+            if(data < root->left->data) {
+                return rightRotate(root);
+            }
+            // Left-Right unbalanced
+            else if(data > root->left->data) {
+                root->left = leftRotate(root->left);
+                return rightRotate(root);
+            }
+        }
+
+        // Right-heavy subtree
+        else if(balance < -1) {
+            // Right-Right unbalanced
+            if(data > root->right->data) {
+                return leftRotate(root);
+            }
+            // Right-Left unbalanced
+            else if(data < root->right->data) {
+                root->right = rightRotate(root->right);
+                return leftRotate(root);
+            }
+        }
+
+        // No Unbalancing case (Needed here, but NOT in void insertUtil()...)
+        else {
+            return root;
+        }
+    }
+    */
+
     void inorder(AVLNode* root) {
         if(!root) return;
 
@@ -133,6 +275,10 @@ public:
 
     void insert(int data) {
         insertUtil(root, data);
+        
+        /*
+        root = insertUtil(root, data);
+        */
     }
 
     void printInorder() {
