@@ -14,7 +14,7 @@ private:
 
     Node* root;
 
-    static bool searchHelper(Node* root, int key) {
+    static bool searchUtil(Node* root, int key) {
         if(!root) {
             return false;
         }
@@ -22,43 +22,41 @@ private:
         if(key == root->data) {
             return true;
         } else if(key < root->data) {
-            return searchHelper(root->left, key);
+            return searchUtil(root->left, key);
         } else {
-            return searchHelper(root->right, key);
+            return searchUtil(root->right, key);
         }
     }
 
-    static Node* insertHelper(Node* root, int data) {
+    static Node* insertUtil(Node* root, int data) {
         if(!root) {
             return new Node(data);
         }
 
         if(data < root->data) {
-            root->left = insertHelper(root->left, data);
+            root->left = insertUtil(root->left, data);
         } else {
-            root->right = insertHelper(root->right, data);
+            root->right = insertUtil(root->right, data);
         }
 
         return root;
     }
 
-    static Node* getInorderSuccessor(Node* root) {
-        while(root && root->left) {
-            root = root->left;
-        }
-        return root;
-    }
-
-    static Node* deleteNodeHelper(Node* root, int key) {
+    static Node* deleteNodeUtil(Node* root, int key) {
         if(!root) {
             return NULL;
         }
 
         if(key < root->data) {
-            root->left = deleteNodeHelper(root->left, key);
+            root->left = deleteNodeUtil(root->left, key);
         } else if(key > root->data) {
-            root->right = deleteNodeHelper(root->right, key);
+            root->right = deleteNodeUtil(root->right, key);
         } else {
+            /**
+             * The case when root->left and root->right is NULL is already handled,
+             * as in that situation (root->left == NULL) will be true,
+             * and root->right (which is also NULL) will be returned.
+             */
             if(root->left == NULL) {
                 Node* temp = root->right;
                 delete root;
@@ -68,42 +66,45 @@ private:
                 delete root;
                 return temp;
             } else {
-                Node* inorderSuccessor = getInorderSuccessor(root->right);
+                Node* inorderSuccessor = root->right;   // Successor of root is the most left node in right subtree
+                while(!inorderSuccessor->left) {
+                    inorderSuccessor = inorderSuccessor->left;
+                }
                 root->data = inorderSuccessor->data;
-                root->right = deleteNodeHelper(root->right, inorderSuccessor->data);    // delete the duplicate (as we have copied its data to root)
+                root->right = deleteNodeUtil(root->right, inorderSuccessor->data);    // delete the duplicate (as we have copied its data to root)
             }
         }
 
         return root;
     }
 
-    static void displayInorderHelper(Node* root) {
+    static void displayInorderUtil(Node* root) {
         if(!root) {
             return;
         }
 
-        displayInorderHelper(root->left);
+        displayInorderUtil(root->left);
         cout << root->data << " ";
-        displayInorderHelper(root->right);
+        displayInorderUtil(root->right);
     }
 
 public:
     BST() : root(NULL) {}
 
     bool search(int key) {
-        return searchHelper(root, key);
+        return searchUtil(root, key);
     }
 
     void insert(int data) {
-        root = insertHelper(root, data);
+        root = insertUtil(root, data);
     }
 
     void deleteNode(int key) {
-        root = deleteNodeHelper(root, key);
+        root = deleteNodeUtil(root, key);
     }
 
     void displayInorder() {
-        displayInorderHelper(root);
+        displayInorderUtil(root);
     }
 };
 
