@@ -1,8 +1,8 @@
 /**
- * The method in which a node’s height is initialized to 0 (edges counted)
- * is called the edge-based height or 0-based height convention.
- * Theoretically, we count the number of edges below a node
- * on its right or left to determine its balance factor.
+ * The method in which a node’s height is initialized to 1 (not zero)
+    is called the node-based height or 1-based height convention.
+ * Theoretically, we count the number of nodes (NOT edges) below a node
+    on its right or left (longest path) to determine its balance factor.
  */
 
 #include <iostream>
