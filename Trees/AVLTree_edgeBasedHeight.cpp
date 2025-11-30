@@ -44,6 +44,7 @@ private:
         root->right = childLeft;
 
         // Update heights of root & child
+        // Sequence matters here. root (now child) must be updated before child (now root) because child's height depends on root's new height.
         root->height = 1 + max(height(root->left), height(root->right));
         child->height = 1 + max(height(child->left), height(child->right));
 
@@ -59,6 +60,7 @@ private:
         root->left = childRight;
 
         // Update heights of root & child
+        // Sequence matters here. root (now child) must be updated before child (now root) because child's height depends on root's new height.
         root->height = 1 + max(height(root->left), height(root->right));
         child->height = 1 + max(height(child->left), height(child->right));
 
