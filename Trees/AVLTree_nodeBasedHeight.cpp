@@ -175,26 +175,26 @@ private:
 
         // Left side case
         if(balance > 1) {
-            // Left-Left unbalancing
-            if(balanceFactor(root->left) >= 0) {    // When for root->left, leftHeight > rightHeight or both equal
+            // Left-Right unbalancing
+            if(balanceFactor(root->left) < 0) { // When for root->left, leftHeight < rightHeight
+                root->left = leftRotate(root->left);
                 root = rightRotate(root);
             }
-            // Left-Right unbalancing
-            else {  // When for root->left, rightHeight > leftHeight
-                root->left = leftRotate(root->left);
+            // Left-Left unbalancing
+            else {  // When for root->left, leftHeight > rightHeight or both equal
                 root = rightRotate(root);
             }
         }
 
         // Right side case
         else if(balance < -1) {
-            // Right-Right unbalancing
-            if(balanceFactor(root->right) <= 0) {
+            // Right-Left unbalancing
+            if(balanceFactor(root->right) > 0) {
+                root->right = rightRotate(root->right);
                 root = leftRotate(root);
             }
-            // Right-Left unbalancing
+            // Right-Right unbalancing
             else {
-                root->right = rightRotate(root->right);
                 root = leftRotate(root);
             }
         }
@@ -252,31 +252,31 @@ private:
 
         // Left side case
         if(balance > 1) {
-            // Left-Left unbalancing
-            if(balanceFactor(root->left) >= 0) {    // When for root->left, leftHeight > rightHeight or both equal
+            // Left-Right unbalancing
+            if(balanceFactor(root->left) < 0) {  // When for root->left, rightHeight > leftHeight
+                root->left = leftRotate(root->left);
                 return rightRotate(root);
             }
-            // Left-Right unbalancing
-            else {  // When for root->left, rightHeight > leftHeight
-                root->left = leftRotate(root->left);
+            // Left-Left unbalancing
+            else {    // When for root->left, leftHeight > rightHeight or both equal
                 return rightRotate(root);
             }
         }
 
         // Right side case
         else if(balance < -1) {
-            // Right-Right unbalancing
-            if(balanceFactor(root->right) <= 0) {
+            // Right-Left unbalancing
+            if(balanceFactor(root->right) > 0) {
+                root->right = rightRotate(root->right);
                 return leftRotate(root);
             }
-            // Right-Left unbalancing
+            // Right-Right unbalancing
             else {
-                root->right = rightRotate(root->right);
                 return leftRotate(root);
             }
         }
 
-        // No unbalancing case
+        // "No unbalancing" case
         else
             return root;
     }
