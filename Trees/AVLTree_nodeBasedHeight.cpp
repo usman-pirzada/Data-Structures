@@ -17,14 +17,14 @@ private:
         AVLNode* left;
         AVLNode* right;
 
-        AVLNode(int data) : data(data), height(0), left(NULL), right(NULL) {}
+        AVLNode(int data) : data(data), height(1), left(NULL), right(NULL) {}
     };
 
     AVLNode* root;
 
     int height(AVLNode* root) {
-        // Returns -1 when the passed node doesn't exist, as for Edge-based height single Node's height is 0.
-        return !root ? -1 : root->height;
+        // Returns 0 when the passed node doesn't exist, as for Node-based height single Node's height is 1.
+        return !root ? 0 : root->height;
     }
 
     int balanceFactor(AVLNode* root) {
