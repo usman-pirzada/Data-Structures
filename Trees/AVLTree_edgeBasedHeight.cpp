@@ -47,7 +47,7 @@ private:
         root->height = 1 + max(height(root->left), height(root->right));
         child->height = 1 + max(height(child->left), height(child->right));
 
-        return child;
+        return child;   // Now child is the new root
     }
 
     AVLNode* rightRotate(AVLNode* root) {
@@ -62,7 +62,7 @@ private:
         root->height = 1 + max(height(root->left), height(root->right));
         child->height = 1 + max(height(child->left), height(child->right));
 
-        return child;
+        return child;   // Now child is the new root
     }
 
     void insertUtil(AVLNode*& root, int data) {
