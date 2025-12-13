@@ -244,6 +244,8 @@ private:
             }
         }
 
+        if(!root) return;   // Required here since the last remaining Node might have been deleted.
+
         root->height = 1 + max(height(root->left), height(root->right));
 
         // *** Self-balancing Logic ***
