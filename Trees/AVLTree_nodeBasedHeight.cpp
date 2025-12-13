@@ -255,11 +255,11 @@ private:
             // Left-Right unbalancing
             if(balanceFactor(root->left) < 0) {  // When for root->left, rightHeight > leftHeight
                 root->left = leftRotate(root->left);
-                return rightRotate(root);
+                root = rightRotate(root);
             }
             // Left-Left unbalancing
             else {    // When for root->left, leftHeight > rightHeight or both equal
-                return rightRotate(root);
+                root = rightRotate(root);
             }
         }
 
@@ -268,17 +268,15 @@ private:
             // Right-Left unbalancing
             if(balanceFactor(root->right) > 0) {
                 root->right = rightRotate(root->right);
-                return leftRotate(root);
+                root = leftRotate(root);
             }
             // Right-Right unbalancing
             else {
-                return leftRotate(root);
+                root = leftRotate(root);
             }
         }
 
-        // "No unbalancing" case
-        else
-            return root;
+        return root;
     }
     */
 
@@ -315,12 +313,12 @@ private:
         if(balance > 1) {
             // Left-Left unbalanced
             if(data < root->left->data) {
-                return rightRotate(root);
+                root = rightRotate(root);
             }
             // Left-Right unbalanced
             else if(data > root->left->data) {
                 root->left = leftRotate(root->left);
-                return rightRotate(root);
+                root = rightRotate(root);
             }
         }
 
@@ -328,19 +326,16 @@ private:
         else if(balance < -1) {
             // Right-Right unbalanced
             if(data > root->right->data) {
-                return leftRotate(root);
+                root = leftRotate(root);
             }
             // Right-Left unbalanced
             else if(data < root->right->data) {
                 root->right = rightRotate(root->right);
-                return leftRotate(root);
+                root = leftRotate(root);
             }
         }
 
-        // No Unbalancing case (Needed here, but NOT in void insertUtil()...)
-        else {
-            return root;
-        }
+        return root;
     }
     */
 
