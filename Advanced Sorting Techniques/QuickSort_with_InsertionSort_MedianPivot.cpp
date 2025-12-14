@@ -41,7 +41,7 @@ int partition(int* arr, int start, int end) {
     }
 
     // Swapping arr[pos] & arr[end] to place pivotElement at pos where elements before pos are < pivotElement
-    int temp = arr[pos];
+    temp = arr[pos];
     arr[pos] = arr[end];
     arr[end] = temp;
 
@@ -60,7 +60,22 @@ void quickSort(int* arr, int start, int end) {
 
 int main() {
     
-    
+    int arr[] = {64, 34, 25, 12, 22, 11, 90};
+    int n = sizeof(arr)/sizeof(arr[0]);
+
+    cout << "Original array: ";
+    for(int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    quickSort(arr, 0, n-1);
+
+    cout << "Sorted array: ";
+    for(int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
     
     return 0;
 }
