@@ -1,6 +1,12 @@
 #include <iostream>
 using namespace std;
 
+void swap(int& a, int& b) {
+	int temp = a;
+	a = b;
+	b = temp;
+}
+
 void modifiedBubbleSort(int* arr, int n) {
 	cout << ".......Sorting by Modified Bubble Sort.......";
 	int swapCount = 0, cmpCount = 0;
@@ -12,11 +18,7 @@ void modifiedBubbleSort(int* arr, int n) {
 			
 			cmpCount++;
 			if(arr[j] > arr[j+1]) {
-				// Swapping arr[j] & arr[j+1]
-				int temp = arr[j];
-				arr[j] = arr[j+1];
-				arr[j+1] = temp;
-				
+				swap(arr[j], arr[j+1]);
 				isSwap = true;
 				swapCount++;
 			}
@@ -44,11 +46,7 @@ void bubbleSort(int* arr, int n) {
 			
 			cmpCount++;
 			if(arr[j] > arr[j+1]) {
-				// Swapping arr[j] & arr[j+1]
-				int temp = arr[j];
-				arr[j] = arr[j+1];
-				arr[j+1] = temp;
-				
+				swap(arr[j], arr[j+1]);
 				swapCount++;
 			}
 		}

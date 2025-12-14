@@ -1,6 +1,12 @@
 #include <iostream>
 using namespace std;
 
+void swap(int& a, int& b) {
+	int temp = a;
+	a = b;
+	b = temp;
+}
+
 void selectionSort(int* arr, int n) {
 	cout << ".......Sorting by Selection Sort.......";
 	int swapCount = 0, cmpCount = 0;
@@ -16,9 +22,7 @@ void selectionSort(int* arr, int n) {
 		}
 
 		if (minIndex != i) {
-			int temp = arr[i];
-			arr[i] = arr[minIndex];
-			arr[minIndex] = temp;
+			swap(arr[i], arr[minIndex]);
 			swapCount++;
 		}
 	}
