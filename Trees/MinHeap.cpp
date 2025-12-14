@@ -12,10 +12,25 @@ class MinHeap {
         b = temp;
     }
 
+    // Returns the index of parent
+    int parent(int i) {
+        return (i - 1) / 2;
+    }
+
+    // Returns the index of left child
+    int leftChild(int i) {
+        return (2*i + 1);
+    }
+
+    // Returns the index of right child
+    int rightChild(int i) {
+        return (2*i + 2);
+    }
+
     void heapifyDown(int i) {
         int smallest = i;
-        int left = 2*i + 1; // Left Child
-        int right = 2*i + 2;    // Right Child
+        int left = leftChild(i);
+        int right = rightChild(i);
 
         if(left < filledSize && heap[left] < heap[smallest]) {
             smallest = left;
@@ -34,11 +49,11 @@ class MinHeap {
     }
 
     void heapifyUp(int i) {
-        int parent = (i - 1) / 2;
+        int p = parent(i);
 
-        if(i > 0 && heap[i] < heap[parent]) {
-            swap(heap[i], heap[parent]);
-            heapifyUp(parent);
+        if(i > 0 && heap[i] < heap[p]) {
+            swap(heap[i], heap[p]);
+            heapifyUp(p);
         }
     }
 
