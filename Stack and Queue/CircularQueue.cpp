@@ -2,6 +2,7 @@
  * In the current logic, 'front' always points directly to the valid data waiting to be dequeued
  * and 'rear' always points directly to the last valid data inserted.
  * And when queue empty, both 'front' and 'rear' point to -1
+ * Here, rear == front means that the queue has exactly one element
 */
 #include <iostream>
 using namespace std;
