@@ -1,15 +1,15 @@
 /*
-    Problem:
-    A construction company is preparing a temporary emergency bridge across a river. They
-    have several rope pieces of different lengths stored in their warehouse. To build the final
-    bridge-support rope, they must connect all rope pieces into one single long rope.
-    However, the rope-joining machine charges money equal to the sum of lengths of the two ropes
-    being connected. To minimize the overall cost, the company must follow an intelligent strategy.
-    Using an appropriate data structure, write a C++ program that determines the minimum total cost
-    required to connect all the ropes into one rope.
-    You are given the following rope lengths:
-    Input: arr[] = [4, 2, 7, 6, 9]
-    Output: 62
+Problem:
+A construction company is preparing a temporary emergency bridge across a river. They
+have several rope pieces of different lengths stored in their warehouse. To build the final
+bridge-support rope, they must connect all rope pieces into one single long rope.
+However, the rope-joining machine charges money equal to the sum of lengths of the two ropes
+being connected. To minimize the overall cost, the company must follow an intelligent strategy.
+Using an appropriate data structure, write a C++ program that determines the minimum total cost
+required to connect all the ropes into one rope.
+You are given the following rope lengths:
+  ● Input: arr[] = [4, 2, 7, 6, 9]
+  ● Output: 62
 */
 #include <iostream>
 using namespace std;
